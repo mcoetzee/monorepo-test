@@ -1,5 +1,5 @@
 {
-  "name": "package-a",
+  "name": "@mockintosh/package-a",
   "version": "1.0.0",
   "description": "",
   "main": "dist/packages/package-a/src/index.js",
