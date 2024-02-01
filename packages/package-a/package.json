@@ -1,0 +1,19 @@
+{
+  "name": "package-a",
+  "version": "1.0.0",
+  "description": "",
+  "main": "dist/packages/package-a/src/index.js",
+  "types": "dist/packages/package-a/src/index.d.ts",
+  "files": ["dist"],
+  "scripts": {
+    "test": "node dist/packages/package-a/src/index.js",
+    "build": "rm -rf dist && tsc",
+    "prepublishOnly": "echo 'Building package-a for NPM registry...' && rm -rf dist && tsc -p tsconfig.npm.json"
+  },
+  "dependencies": {
+    "package-b": "workspace:*"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}

@@ -1,0 +1,14 @@
+{
+  "name": "package-b",
+  "version": "1.0.0",
+  "description": "",
+  "main": "dist/packages/package-b/src/index.js",
+  "types": "dist/packages/package-b/src/index.d.ts",
+  "files": ["dist"],
+  "scripts": {
+    "prepublishOnly": "echo 'Building package-b for NPM registry...' && rm -rf dist && tsc -p tsconfig.npm.json"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}

@@ -1,0 +1,16 @@
+{
+  "name": "monorepo-test",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "license": "ISC",
+  "scripts": {
+    "build": "tsc -b tsconfig.build.json",
+    "build:watch": "pnpm run build -w"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.15",
+    "prettier": "^3.2.4",
+    "typescript": "^5.3.3"
+  }
+}
