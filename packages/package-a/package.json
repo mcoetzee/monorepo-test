@@ -11,7 +11,7 @@
     "prepublishOnly": "echo 'Building package-a for NPM registry...' && rm -rf dist && tsc -p tsconfig.npm.json"
   },
   "dependencies": {
-    "package-b": "workspace:*"
+    "@mockintosh/package-b": "workspace:*"
   },
   "keywords": [],
   "author": "",
