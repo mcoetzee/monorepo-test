@@ -3,4 +3,4 @@
 "@mockintosh/package-b": patch
 ---
 
-Patch 3
+Patch update
