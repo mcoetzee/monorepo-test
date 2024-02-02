@@ -6,7 +6,8 @@
   "license": "ISC",
   "scripts": {
     "build": "tsc -b tsconfig.build.json",
-    "build:watch": "pnpm run build -w"
+    "build:watch": "pnpm run build -w",
+    "release": "pnpm changeset publish"
   },
   "devDependencies": {
     "@types/node": "^20.11.15",
