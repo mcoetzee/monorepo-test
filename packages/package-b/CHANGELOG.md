@@ -1,5 +1,17 @@
 # @mockintosh/package-b
 
+## 1.1.2
+
+### Patch Changes
+
+- B patch
+
+## 1.1.1
+
+### Patch Changes
+
+- All patch
+
 ## 1.1.0
 
 ### Minor Changes
