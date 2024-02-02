@@ -1,10 +1,12 @@
 {
   "name": "@mockintosh/package-b",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "",
   "main": "dist/packages/package-b/src/index.js",
   "types": "dist/packages/package-b/src/index.d.ts",
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "prepublishOnly": "echo 'Building package-b for NPM registry...' && rm -rf dist && tsc -p tsconfig.npm.json"
   },
