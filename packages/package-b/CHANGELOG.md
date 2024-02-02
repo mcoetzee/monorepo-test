@@ -1,5 +1,11 @@
 # @mockintosh/package-b
 
+## 1.3.4
+
+### Patch Changes
+
+- 51f94d2: Patch 4
+
 ## 1.3.3
 
 ### Patch Changes

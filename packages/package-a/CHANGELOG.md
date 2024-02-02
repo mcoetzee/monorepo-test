@@ -4,6 +4,14 @@
 
 ### Patch Changes
 
+- 51f94d2: Patch 4
+- Updated dependencies [51f94d2]
+  - @mockintosh/package-b@1.3.4
+
+## 1.3.3
+
+### Patch Changes
+
 - 0a906f3: Patch update
 - Updated dependencies [0a906f3]
   - @mockintosh/package-b@1.3.3
