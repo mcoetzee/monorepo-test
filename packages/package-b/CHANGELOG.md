@@ -1,5 +1,11 @@
 # @mockintosh/package-b
 
+## 1.3.3
+
+### Patch Changes
+
+- 0a906f3: Patch update
+
 ## 1.3.2
 
 ### Patch Changes
