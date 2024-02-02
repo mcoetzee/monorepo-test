@@ -1,5 +1,13 @@
 # @mockintosh/package-a
 
+## 1.3.2
+
+### Patch Changes
+
+- Patch 2
+- Updated dependencies
+  - @mockintosh/package-b@1.3.2
+
 ## 1.3.1
 
 ### Patch Changes
