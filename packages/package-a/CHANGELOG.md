@@ -1,5 +1,11 @@
 # @mockintosh/package-a
 
+## 1.1.1
+
+### Patch Changes
+
+- Patch for one package
+
 ## 1.1.0
 
 ### Minor Changes
