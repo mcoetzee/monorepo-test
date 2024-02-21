@@ -55,6 +55,30 @@ importers:
         specifier: ^7.33.2
         version: 7.33.2(eslint@8.56.0)
 
+  packages/my-other-app:
+    dependencies:
+      '@testing-library/jest-dom':
+        specifier: ^5.17.0
+        version: 5.17.0
+      '@testing-library/react':
+        specifier: ^13.4.0
+        version: 13.4.0(react-dom@18.2.0)(react@18.2.0)
+      '@testing-library/user-event':
+        specifier: ^13.5.0
+        version: 13.5.0(@testing-library/dom@9.3.4)
+      react:
+        specifier: ^18.2.0
+        version: 18.2.0
+      react-dom:
+        specifier: ^18.2.0
+        version: 18.2.0(react@18.2.0)
+      react-scripts:
+        specifier: 5.0.1
+        version: 5.0.1(@babel/plugin-syntax-flow@7.23.3)(@babel/plugin-transform-react-jsx@7.23.4)(eslint@8.56.0)(react@18.2.0)(typescript@5.3.3)
+      web-vitals:
+        specifier: ^2.1.4
+        version: 2.1.4
+
   packages/package-a:
     dependencies:
       package-b:
