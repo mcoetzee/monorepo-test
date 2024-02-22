@@ -63,7 +63,6 @@ jobs:
         if: github.event_name == 'pull_request'
         with:
           message-id: cloudflare-deploy-1
-          refresh-message-position: true
           message: |
             ### <img alt="" src="https://user-images.githubusercontent.com/23264/106598434-9e719e00-654f-11eb-9e59-6167043cfa01.png" width="16"> &nbsp;Cloudflare Pages
             
