@@ -56,3 +56,9 @@ jobs:
           echo ${{ steps.cloudflare.outputs.url }}
           echo ${{ steps.cloudflare.outputs.environment }}
           echo ${{ steps.get-alias.outputs.alias }}
+      - name: Add deployment PR comment
+        uses: mshick/add-pr-comment@v2
+        with:
+          message-id: cloudflare-deploy
+          message: |
+            Cloudflare deployment alias: ${{ steps.get-alias.outputs.alias }}
