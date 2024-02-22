@@ -35,6 +35,7 @@ jobs:
           cd packages/my-app
           pnpm run build
       - name: Publish
+        id: cloudflare
         uses: cloudflare/pages-action@1
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
@@ -43,3 +44,9 @@ jobs:
           directory: packages/my-app/build
           gitHubToken: ${{ secrets.GITHUB_TOKEN }}
           branch: ${{ github.head_ref || github.ref_name }}
+      - name: Echo outputs
+        run: |
+          echo ${{ steps.cloudflare.outputs.id }}
+          echo ${{ steps.cloudflare.outputs.url }}
+          echo ${{ steps.cloudflare.outputs.environment }}
+          echo ${{ steps.cloudflare.outputs.alias }}
