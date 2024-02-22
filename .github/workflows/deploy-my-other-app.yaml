@@ -35,33 +35,20 @@ jobs:
         run: |
           cd packages/my-other-app
           pnpm run build
-      - name: Publish
-        id: cloudflare
-        uses: cloudflare/pages-action@1
-        with:
-          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          projectName: cf-switch-test
-          directory: packages/my-other-app/build
-          gitHubToken: ${{ secrets.GITHUB_TOKEN }}
-          branch: ${{ github.head_ref || github.ref_name }}
-      - name: Echo outputs
-        run: |
-          echo ${{ steps.cloudflare.outputs.id }}
-          echo ${{ steps.cloudflare.outputs.url }}
-          echo ${{ steps.cloudflare.outputs.environment }}
-          echo ${{ steps.cloudflare.outputs.alias }}
-#      - name: Comment deploy url
-#        uses: mshick/add-pr-comment@v2
+#      - name: Publish
+#        id: cloudflare
+#        uses: cloudflare/pages-action@1
 #        with:
-#          message-id: cloudflare-deploy
-#          message: |
-#            ### <span aria-hidden="true">✅</span> Deploy Preview ready!
-#
-#            |  Name | Link |
-#            |---------------------------------|------------------------|
-#            |<span aria-hidden="true">🔨</span> Latest commit | ${{ github.sha }} |
-#            |<span aria-hidden="true">🔍</span> Latest deploy log | ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }} |
-#            |<span aria-hidden="true">😎</span> Deploy Preview Url | [${{ steps.cloudflare.outputs.url }}](${{ steps.cloudflare.outputs.url }}) |
-#            |<span aria-hidden="true">🌳</span> Environment | ${{ steps.cloudflare.outputs.environment }} |
-#            ---
+#          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+#          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+#          projectName: cf-switch-test
+#          directory: packages/my-other-app/build
+#          gitHubToken: ${{ secrets.GITHUB_TOKEN }}
+#          branch: ${{ github.head_ref || github.ref_name }}
+#      - name: Echo outputs
+#        run: |
+#          echo ${{ steps.cloudflare.outputs.id }}
+#          echo ${{ steps.cloudflare.outputs.url }}
+#          echo ${{ steps.cloudflare.outputs.environment }}
+#          echo ${{ steps.cloudflare.outputs.alias }}
+
