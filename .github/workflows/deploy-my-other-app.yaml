@@ -46,6 +46,7 @@ jobs:
           gitHubToken: ${{ secrets.GITHUB_TOKEN }}
           branch: ${{ github.head_ref || github.ref_name }}
       - name: Get Deployment Alias
+        if: github.event_name == 'pull_request'
         id: get-alias
         run: |
           deployment_response=$(curl --request GET --url https://api.cloudflare.com/client/v4/accounts/${{ secrets.CLOUDFLARE_ACCOUNT_ID }}/pages/projects/cf-switch-test/deployments/${{ steps.cloudflare.outputs.id }} --header 'Content-Type: application/json' -H "Authorization: Bearer ${{ secrets.CLOUDFLARE_API_TOKEN }}")
@@ -53,13 +54,17 @@ jobs:
           echo "alias=$alias" >> "$GITHUB_OUTPUT"
       - name: Echo outputs
         run: |
+          echo ${{ github.event_name }}
           echo ${{ steps.cloudflare.outputs.id }}
           echo ${{ steps.cloudflare.outputs.url }}
           echo ${{ steps.cloudflare.outputs.environment }}
           echo ${{ steps.get-alias.outputs.alias }}
       - name: Add deployment PR comment
         uses: mshick/add-pr-comment@v2
+        if: github.event_name == 'pull_request'
         with:
+          message-id: cloudflare-deploy-2
+          refresh-message-position: true
           message: |
             ### ⚡️ Cloudflare Pages: My Other App
             Deployment alias: ${{ steps.get-alias.outputs.alias }}
