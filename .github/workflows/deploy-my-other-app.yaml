@@ -49,6 +49,7 @@ jobs:
         if: github.event_name == 'pull_request'
         id: get-alias
         run: |
+          sleep 20s
           deployment_response=$(curl --request GET --url https://api.cloudflare.com/client/v4/accounts/${{ secrets.CLOUDFLARE_ACCOUNT_ID }}/pages/projects/cf-switch-test/deployments/${{ steps.cloudflare.outputs.id }} --header 'Content-Type: application/json' -H "Authorization: Bearer ${{ secrets.CLOUDFLARE_API_TOKEN }}")
           alias=$(jq -r '.result.aliases[0]' <<< "$deployment_response")
           echo "alias=$alias" >> "$GITHUB_OUTPUT"
