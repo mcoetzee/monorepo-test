@@ -65,5 +65,12 @@ jobs:
           message-id: cloudflare-deploy-1
           refresh-message-position: true
           message: |
-            ### ⚡️ Cloudflare Pages: My App
-            Deployment alias: ${{ steps.get-alias.outputs.alias }}
+            ### <img alt="" src="https://user-images.githubusercontent.com/23264/106598434-9e719e00-654f-11eb-9e59-6167043cfa01.png" width="16"> &nbsp;Cloudflare Pages
+            
+            <table>
+            <tr><td><strong>App:</strong></td><td>My App</td></tr>
+            <tr>
+            <td><strong>Branch Preview URL:</strong></td>
+            <td><a href='${{ steps.get-alias.outputs.alias }}'>${{ steps.get-alias.outputs.alias }}</a></td>
+            </tr>
+            </table>
