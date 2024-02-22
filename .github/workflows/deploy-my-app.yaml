@@ -47,7 +47,7 @@ jobs:
       - name: Get Deployment Alias
         id: get-alias
         run: |
-          deployment_response=$(curl --request GET --url https://api.cloudflare.com/client/v4/accounts/${{ secrets.CLOUDFLARE_ACCOUNT_ID }}/pages/projects/du-test/deployments/${{ steps.cloudflare.outputs.id }} --header 'Content-Type: application/json' -H "Authorization: Bearer ${{ secrets.CLOUDFLARE_API_TOKEN }}" 
+          deployment_response=$(curl --request GET --url https://api.cloudflare.com/client/v4/accounts/${{ secrets.CLOUDFLARE_ACCOUNT_ID }}/pages/projects/du-test/deployments/${{ steps.cloudflare.outputs.id }} --header 'Content-Type: application/json' -H "Authorization: Bearer ${{ secrets.CLOUDFLARE_API_TOKEN }}")
           alias=$(jq '.result.aliases[0]' <<< "$deployment_response")
           echo "alias=$alias" >> "$GITHUB_OUTPUT"
       - name: Echo outputs
