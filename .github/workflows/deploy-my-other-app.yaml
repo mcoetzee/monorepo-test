@@ -36,6 +36,7 @@ jobs:
           cd packages/my-other-app
           pnpm run build
       - name: Publish
+        id: cloudflare
         uses: cloudflare/pages-action@1
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
