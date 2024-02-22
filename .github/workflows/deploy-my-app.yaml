@@ -15,6 +15,7 @@ jobs:
     permissions:
       contents: read
       deployments: write
+      pull-requests: write
     name: Deploy to Cloudflare Pages
     steps:
       - name: Checkout Repository
@@ -35,6 +36,7 @@ jobs:
           cd packages/my-app
           pnpm run build
       - name: Publish
+        id: cloudflare
         uses: cloudflare/pages-action@1
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
@@ -43,3 +45,32 @@ jobs:
           directory: packages/my-app/build
           gitHubToken: ${{ secrets.GITHUB_TOKEN }}
           branch: ${{ github.head_ref || github.ref_name }}
+      - name: Get Deployment Alias
+        if: github.event_name == 'pull_request'
+        id: get-alias
+        run: |
+          deployment_response=$(curl --request GET --url https://api.cloudflare.com/client/v4/accounts/${{ secrets.CLOUDFLARE_ACCOUNT_ID }}/pages/projects/du-test/deployments/${{ steps.cloudflare.outputs.id }} --header 'Content-Type: application/json' -H "Authorization: Bearer ${{ secrets.CLOUDFLARE_API_TOKEN }}")
+          alias=$(jq -r '.result.aliases[0]' <<< "$deployment_response")
+          echo "alias=$alias" >> "$GITHUB_OUTPUT"
+      - name: Echo outputs
+        run: |
+          echo ${{ steps.cloudflare.outputs.id }}
+          echo ${{ steps.cloudflare.outputs.url }}
+          echo ${{ steps.cloudflare.outputs.environment }}
+          echo ${{ steps.get-alias.outputs.alias }}
+      - name: Add deployment PR comment
+        uses: mshick/add-pr-comment@v2
+        if: github.event_name == 'pull_request'
+        with:
+          message-id: cloudflare-deploy-1
+          refresh-message-position: true
+          message: |
+            ### <img alt="" src="https://user-images.githubusercontent.com/23264/106598434-9e719e00-654f-11eb-9e59-6167043cfa01.png" width="16"> &nbsp;Cloudflare Pages
+            
+            <table>
+            <tr><td><strong>App:</strong></td><td>My App</td></tr>
+            <tr>
+            <td><strong>Branch Preview URL:</strong></td>
+            <td><a href='${{ steps.get-alias.outputs.alias }}'>${{ steps.get-alias.outputs.alias }}</a></td>
+            </tr>
+            </table>
