@@ -50,3 +50,4 @@ jobs:
           echo ${{ steps.cloudflare.outputs.url }}
           echo ${{ steps.cloudflare.outputs.environment }}
           echo ${{ steps.cloudflare.outputs.alias }}
+          curl --request GET --url https://api.cloudflare.com/client/v4/accounts/${{ secrets.CLOUDFLARE_ACCOUNT_ID }}/pages/projects/du-test/deployments/${{ steps.cloudflare.outputs.id }} --header 'Content-Type: application/json' -H "Authorization: Bearer ${{ secrets.CLOUDFLARE_API_TOKEN }}" | jq '.result.aliases[0]'
