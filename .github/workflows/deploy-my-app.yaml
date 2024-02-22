@@ -44,10 +44,15 @@ jobs:
           directory: packages/my-app/build
           gitHubToken: ${{ secrets.GITHUB_TOKEN }}
           branch: ${{ github.head_ref || github.ref_name }}
+      - name: Get Deployment Alias
+        id: get-alias
+        run: |
+          deployment_response=$(curl --request GET --url https://api.cloudflare.com/client/v4/accounts/${{ secrets.CLOUDFLARE_ACCOUNT_ID }}/pages/projects/du-test/deployments/${{ steps.cloudflare.outputs.id }} --header 'Content-Type: application/json' -H "Authorization: Bearer ${{ secrets.CLOUDFLARE_API_TOKEN }}" 
+          alias=$(jq '.result.aliases[0]' <<< "$deployment_response")
+          echo "alias=$alias" >> "$GITHUB_OUTPUT"
       - name: Echo outputs
         run: |
           echo ${{ steps.cloudflare.outputs.id }}
           echo ${{ steps.cloudflare.outputs.url }}
           echo ${{ steps.cloudflare.outputs.environment }}
-          echo ${{ steps.cloudflare.outputs.alias }}
-          curl --request GET --url https://api.cloudflare.com/client/v4/accounts/${{ secrets.CLOUDFLARE_ACCOUNT_ID }}/pages/projects/du-test/deployments/${{ steps.cloudflare.outputs.id }} --header 'Content-Type: application/json' -H "Authorization: Bearer ${{ secrets.CLOUDFLARE_API_TOKEN }}" | jq '.result.aliases[0]'
+          echo ${{ steps.get-alias.outputs.alias }}
