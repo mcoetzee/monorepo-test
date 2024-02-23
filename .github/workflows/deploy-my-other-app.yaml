@@ -45,21 +45,17 @@ jobs:
           directory: packages/my-other-app/build
           gitHubToken: ${{ secrets.GITHUB_TOKEN }}
           branch: ${{ github.head_ref || github.ref_name }}
-      - name: Get Deployment Alias
+      - name: Set Deployment Alias
         if: github.event_name == 'pull_request'
-        id: get-alias
+        id: set-alias
         run: |
-          sleep 20s
-          deployment_response=$(curl --request GET --url https://api.cloudflare.com/client/v4/accounts/${{ secrets.CLOUDFLARE_ACCOUNT_ID }}/pages/projects/cf-switch-test/deployments/${{ steps.cloudflare.outputs.id }} --header 'Content-Type: application/json' -H "Authorization: Bearer ${{ secrets.CLOUDFLARE_API_TOKEN }}")
-          alias=$(jq -r '.result.aliases[0]' <<< "$deployment_response")
-          echo "alias=$alias" >> "$GITHUB_OUTPUT"
+          pnpm ts-node scripts/generate-branch-alias.ts ${{ github.head_ref || github.ref_name }} cf-switch-test
       - name: Echo outputs
         run: |
-          echo ${{ github.event_name }}
           echo ${{ steps.cloudflare.outputs.id }}
           echo ${{ steps.cloudflare.outputs.url }}
           echo ${{ steps.cloudflare.outputs.environment }}
-          echo ${{ steps.get-alias.outputs.alias }}
+          echo ${{ steps.set-alias.outputs.alias }}
       - name: Add deployment PR comment
         uses: mshick/add-pr-comment@v2
         if: github.event_name == 'pull_request'
@@ -72,7 +68,7 @@ jobs:
             <tr><td><strong>App:</strong></td><td>My Other App</td></tr>
             <tr>
             <td><strong>Branch Preview URL:</strong></td>
-            <td><a href='${{ steps.get-alias.outputs.alias }}'>${{ steps.get-alias.outputs.alias }}</a></td>
+            <td><a href='${{ steps.set-alias.outputs.alias }}'>${{ steps.set-alias.outputs.alias }}</a></td>
             </tr>
             </table>
 
