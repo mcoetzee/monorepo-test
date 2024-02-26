@@ -23,7 +23,7 @@ function generateBranchAliasUrl(branch: string, project: string) {
   return sanitisedBranch ? `https://${sanitisedBranch}.${project}.pages.dev` : '';
 }
 
-function trimFromEdges(str: string, char: string): string {
+function trimFromEdges(str: string, char: string) {
   while (str.charAt(0) === char) {
     if (str.length === 1) {
       return '';
