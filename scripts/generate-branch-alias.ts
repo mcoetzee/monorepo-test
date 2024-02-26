@@ -14,11 +14,10 @@ if (!branch || !project) {
 setOutput('alias', generateBranchAliasUrl(branch, project))
 
 function generateBranchAliasUrl(branch: string, project: string) {
-  let sanitisedBranch = trimFromEdges(branch.toLowerCase().replace(INVALID_CHARS_REGEX, '-'), '-');
-
-  if (sanitisedBranch.length > MAX_ALIAS_LENGTH) {
-    sanitisedBranch = sanitisedBranch.substring(0, MAX_ALIAS_LENGTH);
-  }
+  const sanitisedBranch = trimFromEdges(
+    branch.toLowerCase().replace(INVALID_CHARS_REGEX, '-').slice(0, MAX_ALIAS_LENGTH),
+    '-'
+  );
 
   return sanitisedBranch ? `https://${sanitisedBranch}.${project}.pages.dev` : '';
 }
