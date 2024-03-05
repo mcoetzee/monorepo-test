@@ -11,14 +11,16 @@ on:
 
 jobs:
   test:
-    - name: Checkout destination repo (test)
-      uses: actions/checkout@v4
-      with:
-        path: 'dest'
-        ref: 'main'
-        repository: 'mcoetzee/data-export-test'
-        token: ${ secrets.SYNC_BOT_GH_TOKEN }}
-        fetch-depth: 0
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout destination repo (test)
+        uses: actions/checkout@v4
+        with:
+          path: 'dest'
+          ref: 'main'
+          repository: 'mcoetzee/data-export-test'
+          token: ${ secrets.SYNC_BOT_GH_TOKEN }}
+          fetch-depth: 0
 
   sync-files:
     runs-on: ubuntu-latest
