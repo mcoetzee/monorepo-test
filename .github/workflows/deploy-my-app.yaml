@@ -19,7 +19,7 @@ jobs:
           path: 'dest'
           ref: 'main'
           repository: 'mcoetzee/data-export-test'
-          token: ${ secrets.SYNC_BOT_GH_TOKEN }}
+          token: ${ secrets.SSH_DEPLOY_KEY }}
           fetch-depth: 0
 
   sync-files:
@@ -38,7 +38,7 @@ jobs:
           path: 'dest'
           ref: 'main'
           repository: 'mcoetzee/data-export-test'
-          token: ${ secrets.SYNC_BOT_GH_TOKEN }}
+          token: ${ secrets.SSH_DEPLOY_KEY }}
           fetch-depth: 0
           persist-credentials: true
 
