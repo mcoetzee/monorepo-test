@@ -15,7 +15,7 @@ jobs:
     steps:
       - name: Checkout destination repo (test)
         uses: actions/checkout@v4
-      - uses: cpina/github-action-push-to-another-repository
+      - uses: cpina/github-action-push-to-another-repository@main
         env:
           SSH_DEPLOY_KEY: ${{ secrets.SSH_DEPLOY_KEY }}
         with:
