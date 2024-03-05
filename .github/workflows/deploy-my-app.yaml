@@ -10,12 +10,13 @@ on:
       - main
 
 jobs:
-  test-checkout:
+  sync-files:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout destination repo (test)
+      - name: Checkout source repo
         uses: actions/checkout@v4
-      - uses: cpina/github-action-push-to-another-repository@main
+      - name: Push data changes to public repo
+        uses: cpina/github-action-push-to-another-repository@main
         env:
           SSH_DEPLOY_KEY: ${{ secrets.SSH_DEPLOY_KEY }}
         with:
@@ -25,46 +26,6 @@ jobs:
           user-email: github-actions@github.com
           target-branch: main
           target-directory: data
-
-  sync-files:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout source repo
-        uses: actions/checkout@v4
-        with:
-          path: 'source'
-          ref: 'main'
-          persist-credentials: false
-
-      - name: Checkout destination repo
-        uses: actions/checkout@v4
-        with:
-          path: 'dest'
-          ref: 'main'
-          repository: 'mcoetzee/data-export-test'
-          ssh-key: ${ secrets.SSH_DEPLOY_KEY }}
-          fetch-depth: 0
-          persist-credentials: true
-
-      - name: Push changes to public repo
-        shell: bash
-        run: |
-          cd dest
-          git rm -rf data
-          cp -rvT ../source/packages/my-app/data data
-          git reset
-
-          if [ -n "$(git status --porcelain)" ]; then
-            echo "Data changes detected in monorepo."
-            git config user.name github-actions
-            git config user.email github-actions@github.com
-            git add .
-            git commit -m "Update data file(s)"
-            echo "Pushing changes..."
-            git push
-          else
-            echo "No changes to commit and push."
-          fi
 
   deploy:
     needs: sync-files
