@@ -10,7 +10,27 @@ on:
       - main
 
 jobs:
+  sync-files:
+    if: github.event_name != 'pull_request'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout source repo
+        uses: actions/checkout@v4
+      - name: Push data changes to public repo
+        uses: cpina/github-action-push-to-another-repository@main
+        env:
+          SSH_DEPLOY_KEY: ${{ secrets.SSH_DEPLOY_KEY }}
+        with:
+          source-directory: 'packages/my-app/data'
+          destination-github-username: 'mcoetzee'
+          destination-repository-name: 'data-export-test'
+          user-email: github-actions@github.com
+          target-branch: main
+          target-directory: data
+
   deploy:
+    needs: sync-files
+    if: ${{ !failure() && !cancelled() }}
     runs-on: ubuntu-latest
     permissions:
       contents: read
