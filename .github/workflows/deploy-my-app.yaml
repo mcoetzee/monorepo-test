@@ -30,6 +30,7 @@ jobs:
 
   deploy:
     needs: sync-files
+    if: ${{ !(failure() || cancelled()) }}
     runs-on: ubuntu-latest
     permissions:
       contents: read
